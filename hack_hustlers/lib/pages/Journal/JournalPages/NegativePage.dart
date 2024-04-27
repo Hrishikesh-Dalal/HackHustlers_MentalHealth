@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hack_hustlers/pages/Journal/JournalPages/AddtoFirebase.dart';
 
 class NegativePage extends StatefulWidget {
+  final String? id;
+  NegativePage({required this.id});
   @override
   _NegativePageState createState() => _NegativePageState();
 }
@@ -50,6 +53,7 @@ class _NegativePageState extends State<NegativePage> {
                   onPressed: () {
                     setState(() {
                       _data = _textController.text;
+                      addToNegativeEmotions(widget.id, _data);
 
                       ///add for firebase
                     });

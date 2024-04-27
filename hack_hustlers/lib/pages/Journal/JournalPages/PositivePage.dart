@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hack_hustlers/pages/Journal/JournalPages/AddtoFirebase.dart';
 
 class PositivePage extends StatefulWidget {
+  final String? id;
+  PositivePage({required this.id});
   @override
   _PositivePageState createState() => _PositivePageState();
 }
@@ -51,7 +54,8 @@ class _PositivePageState extends State<PositivePage> {
                     setState(() {
                       _data = _textController.text;
 
-                      ///add for firebase
+                      //add for firebase
+                      addToPositiveEmotions(widget.id, _data);
                     });
                     _textController.clear();
                   },

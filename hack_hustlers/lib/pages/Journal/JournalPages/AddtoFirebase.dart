@@ -20,7 +20,7 @@ void addToPositiveEmotions(String? userId, String positiveNote) async {
   }
 }
 
-void addToNegativeEmotions(String userId, String positiveNote) async {
+void addToNegativeEmotions(String? userId, String negativeNote) async {
   try {
     // Get reference to the "PositiveEmotions" collection
     CollectionReference positiveEmotionsCollection = FirebaseFirestore.instance
@@ -30,7 +30,7 @@ void addToNegativeEmotions(String userId, String positiveNote) async {
 
     // Add the positive note to the "PositiveEmotions" collection
     await positiveEmotionsCollection.add({
-      'note': positiveNote,
+      'note': negativeNote,
       'timestamp': FieldValue.serverTimestamp(), // Add timestamp
     });
 

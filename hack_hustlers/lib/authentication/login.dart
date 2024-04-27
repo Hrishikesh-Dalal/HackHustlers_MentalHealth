@@ -52,7 +52,6 @@ class _LoginViewState extends State<LoginView> {
     }
   }
 
- 
   Widget entryField(String title, TextEditingController controller) {
     return TextField(
       controller: controller,
@@ -97,7 +96,7 @@ class _LoginViewState extends State<LoginView> {
           children: [
             Expanded(
               child: Container(
-                child: Image.asset('assets/doctor.jpg'),
+                child: Image.asset('images/Mindspace.jpeg'),
                 color: Colors.white,
                 height: 100,
               ),

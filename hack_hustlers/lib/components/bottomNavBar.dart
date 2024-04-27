@@ -1,5 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hack_hustlers/pages/chatbot.dart';
-import 'package:hack_hustlers/pages/community.dart';
+import 'package:hack_hustlers/pages/Community/community.dart';
 import 'package:hack_hustlers/pages/home.dart';
 import "package:flutter/material.dart";
 import 'package:hack_hustlers/pages/Map/location.dart';
@@ -14,6 +15,31 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int currIndex = 0;
   PageController pageController = PageController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  String? _userEmail;
+
+  void initState() {
+    super.initState();
+    _getUserEmail();
+  }
+
+  Future<void> _getUserEmail() async {
+    try {
+      final user = _auth.currentUser;
+      if (user != null) {
+        if (user.email != null) {
+          _userEmail = user.email;
+          debugPrint('User email: $_userEmail');
+        } else {
+          debugPrint('User email is null');
+        }
+      } else {
+        debugPrint('User is not authenticated');
+      }
+    } catch (e) {
+      debugPrint('Error retrieving user email: $e');
+    }
+  }
 
   void onTapped(int index) {
     setState(() {
@@ -31,7 +57,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
           const HomePage(),
           const LocationPage(),
           const ChatBot(),
-          const Community(),
+          CommunityPage(
+            id: _userEmail,
+          ),
         ],
       ),
       bottomNavigationBar: Container(

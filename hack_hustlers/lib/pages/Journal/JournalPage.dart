@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hack_hustlers/pages/Journal/JournalPages/Display.dart';
 import 'package:hack_hustlers/pages/Journal/JournalPages/DisplayList.dart';
 import 'package:hack_hustlers/pages/Journal/JournalPages/FetchFromFirebase.dart';
 import 'package:hack_hustlers/pages/Journal/JournalPages/NegativePage.dart';
@@ -37,11 +38,13 @@ class Journal extends StatefulWidget {
 
 class _JournalState extends State<Journal> {
   List<Map<String, dynamic>> positiveEmotionsList = [];
+  List<Map<String, dynamic>> negativeEmotionsList = [];
 
   @override
   void initState() {
     super.initState();
     fetchPositiveEmotions(); // Fetch data on app launch
+    fetchNegativeEmotions();
   }
 
   Future<void> fetchPositiveEmotions() async {
@@ -55,16 +58,55 @@ class _JournalState extends State<Journal> {
     }
   }
 
-  Widget buildPositiveEmotionsList(List<Map<String, dynamic>> emotions) {
+  Future<void> fetchNegativeEmotions() async {
+    try {
+      negativeEmotionsList = await getNegativeEmotions(
+          widget.id); // Assuming getPositiveEmotions function retrieves data
+      setState(() {}); // Update state to rebuild with fetched data
+    } catch (error) {
+      // Handle error (e.g., display error message)
+      print("Error fetching negative emotions: $error");
+    }
+  }
+
+  Widget buildEmotionsList(List<Map<String, dynamic>> emotions) {
     return ListView.builder(
       itemCount: emotions.length,
       itemBuilder: (context, index) {
-        return Card(
-          child: ListTile(
-            title:
-                Text(emotions[index]['emotion']), // Assuming emotion key exists
-            subtitle: Text(emotions[index]
-                ['description']), // Assuming description key exists
+        return Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Card(
+            child: ListTile(
+              // Wrap ListTile in InkWell for onTap functionality
+              onTap: () {
+                // Handle card tap event here
+                // You can navigate to another screen, show a dialog, etc.
+                // onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailPage(
+                      date: emotions[index]['timestamp']
+                          .toString()
+                          .substring(0, 11),
+                      content: emotions[index]['note'],
+                    ),
+                  ),
+                );
+// }
+
+                print(
+                    'Card tapped!'); // Example action (replace with your logic)
+              },
+              title: Text(
+                emotions[index]['timestamp'].toString().substring(0, 11),
+              ),
+              subtitle: Text(
+                emotions[index]['note'],
+                style: const TextStyle(fontSize: 18.0),
+                maxLines: 2,
+              ),
+            ),
           ),
         );
       },
@@ -88,7 +130,10 @@ class _JournalState extends State<Journal> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PositivePage()),
+                      MaterialPageRoute(
+                          builder: (context) => PositivePage(
+                                id: widget.id,
+                              )),
                     );
                   },
                   child: Card(
@@ -112,7 +157,10 @@ class _JournalState extends State<Journal> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => NegativePage()),
+                      MaterialPageRoute(
+                          builder: (context) => NegativePage(
+                                id: widget.id,
+                              )),
                     );
                   },
                   child: Card(
@@ -137,12 +185,22 @@ class _JournalState extends State<Journal> {
           ),
           SizedBox(height: 20),
           Text(
-            'History',
+            'Your Positive Emotions',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           Expanded(
             child: positiveEmotionsList.isNotEmpty
-                ? buildPositiveEmotionsList(positiveEmotionsList)
+                ? buildEmotionsList(positiveEmotionsList)
+                : Center(child: Text('No history yet')),
+          ),
+          SizedBox(height: 20),
+          Text(
+            'Your Negative Emotions here',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          Expanded(
+            child: negativeEmotionsList.isNotEmpty
+                ? buildEmotionsList(negativeEmotionsList)
                 : Center(child: Text('No history yet')),
           ),
         ],
