@@ -25,40 +25,7 @@ class _HomePageState extends State<HomePage> {
       
 
       ),
-      bottomNavigationBar: Container(
-        height: 80,
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          showUnselectedLabels: true,
-          items: const [
-            BottomNavigationBarItem(
-              label: 'Home',
-              icon: Icon(Icons.home),
-            ),
-            BottomNavigationBarItem(
-              label: 'Location',
-              icon: Icon(Icons.location_city),
-            ),
-            BottomNavigationBarItem(
-              label: 'Chat Bot',
-              icon: Icon(Icons.games),
-            ),
-            BottomNavigationBarItem(
-              label: 'Community',
-              icon: Icon(Icons.people),
-            ),
-            
-          ],
-          //currentIndex: currIndex,
-          //onTap: onTapped,
-          //selectedItemColor: const Color.fromARGB(255, 108, 199, 242),
-          selectedItemColor: const Color.fromARGB(255, 108, 199, 242),
-        ),
-
-
-    ),
-
-
+      
     );
     
   }
