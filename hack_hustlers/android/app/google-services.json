@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "393256580086",
+    "project_id": "hackhustlers-15bca",
+    "storage_bucket": "hackhustlers-15bca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393256580086:android:7ca77089b69ec0163f4dd7",
+        "android_client_info": {
+          "package_name": "com.example.hack_hustlers"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCifLW4bNPM_kaVNk6Omzx2Rp_rLXngwgI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
