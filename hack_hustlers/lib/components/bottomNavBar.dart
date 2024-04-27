@@ -60,7 +60,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           currentIndex: currIndex,
           onTap: onTapped,
           //selectedItemColor: const Color.fromARGB(255, 108, 199, 242),
-          selectedItemColor: const Color.fromARGB(255, 108, 199, 242),
+          selectedItemColor: Color.fromARGB(255, 132, 132, 246),
         ),
       ),
     );
