@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-void addToPositiveEmotions(String userId, String positiveNote) async {
+void addToPositiveEmotions(String? userId, String positiveNote) async {
   try {
     // Get reference to the "PositiveEmotions" collection
     CollectionReference positiveEmotionsCollection = FirebaseFirestore.instance

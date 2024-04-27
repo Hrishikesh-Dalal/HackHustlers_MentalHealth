@@ -5,7 +5,7 @@ import 'package:hack_hustlers/pages/Journal/JournalPages/NegativePage.dart';
 import 'package:hack_hustlers/pages/Journal/JournalPages/PositivePage.dart';
 
 class JournalPage extends StatefulWidget {
-  final String id;
+  final String? id;
   JournalPage({required this.id});
   @override
   State<JournalPage> createState() => _JournalPageState();
@@ -15,6 +15,7 @@ class _JournalPageState extends State<JournalPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Journal',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -28,7 +29,7 @@ class _JournalPageState extends State<JournalPage> {
 }
 
 class Journal extends StatefulWidget {
-  final String id;
+  final String? id;
   Journal({required this.id});
   @override
   _JournalState createState() => _JournalState();
