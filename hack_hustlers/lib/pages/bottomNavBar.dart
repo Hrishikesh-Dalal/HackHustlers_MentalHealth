@@ -1,5 +1,8 @@
+import 'package:hack_hustlers/pages/chatbot.dart';
+import 'package:hack_hustlers/pages/community.dart';
 import 'package:hack_hustlers/pages/home.dart';
 import "package:flutter/material.dart";
+import 'package:hack_hustlers/pages/location.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -26,6 +29,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
         controller: pageController,
         children: [
           const HomePage(),
+          const Location(),
+          const ChatBot(),
+          const Community(),
          
         ],
       ),
