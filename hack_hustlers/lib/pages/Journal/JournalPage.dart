@@ -1,38 +1,80 @@
 import 'package:flutter/material.dart';
+import 'package:hack_hustlers/pages/Journal/JournalPages/DisplayList.dart';
+import 'package:hack_hustlers/pages/Journal/JournalPages/FetchFromFirebase.dart';
 import 'package:hack_hustlers/pages/Journal/JournalPages/NegativePage.dart';
 import 'package:hack_hustlers/pages/Journal/JournalPages/PositivePage.dart';
-// import 'package:hack_hustlers/JournalPages/NegativePage.dart';
-// import 'package:hack_hustlers/JournalPages/PositivePage.dart';
 
-// void main() {
-//   runApp(MyApp());
-// }
+class JournalPage extends StatefulWidget {
+  final String id;
+  JournalPage({required this.id});
+  @override
+  State<JournalPage> createState() => _JournalPageState();
+}
 
-class JournalPage extends StatelessWidget {
+class _JournalPageState extends State<JournalPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Page',
+      title: 'Journal',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Journal(),
-      routes: {
-        // '/history': (context) => HistoryPage(),
-        // '/firstCardPage': (context) => FirstCardPage(),
-        // '/secondCardPage': (context) => SecondCardPage(),
-      },
+      home: Journal(
+        id: widget.id,
+      ),
     );
   }
 }
 
-class Journal extends StatelessWidget {
+class Journal extends StatefulWidget {
+  final String id;
+  Journal({required this.id});
+  @override
+  _JournalState createState() => _JournalState();
+}
+
+class _JournalState extends State<Journal> {
+  List<Map<String, dynamic>> positiveEmotionsList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchPositiveEmotions(); // Fetch data on app launch
+  }
+
+  Future<void> fetchPositiveEmotions() async {
+    try {
+      positiveEmotionsList = await getPositiveEmotions(
+          widget.id); // Assuming getPositiveEmotions function retrieves data
+      setState(() {}); // Update state to rebuild with fetched data
+    } catch (error) {
+      // Handle error (e.g., display error message)
+      print("Error fetching positive emotions: $error");
+    }
+  }
+
+  Widget buildPositiveEmotionsList(List<Map<String, dynamic>> emotions) {
+    return ListView.builder(
+      itemCount: emotions.length,
+      itemBuilder: (context, index) {
+        return Card(
+          child: ListTile(
+            title:
+                Text(emotions[index]['emotion']), // Assuming emotion key exists
+            subtitle: Text(emotions[index]
+                ['description']), // Assuming description key exists
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: Text('Journal'),
       ),
       body: Column(
         children: [
@@ -44,10 +86,9 @@ class Journal extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PositivePage(),
-                        ));
+                      context,
+                      MaterialPageRoute(builder: (context) => PositivePage()),
+                    );
                   },
                   child: Card(
                     child: Container(
@@ -69,10 +110,9 @@ class Journal extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NegativePage(),
-                        ));
+                      context,
+                      MaterialPageRoute(builder: (context) => NegativePage()),
+                    );
                   },
                   child: Card(
                     child: Container(
@@ -97,17 +137,12 @@ class Journal extends StatelessWidget {
           SizedBox(height: 20),
           Text(
             'History',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           Expanded(
-            child: Container(
-              // Add your history content here
-              alignment: Alignment.center,
-              child: Text('History content goes here'),
-            ),
+            child: positiveEmotionsList.isNotEmpty
+                ? buildPositiveEmotionsList(positiveEmotionsList)
+                : Center(child: Text('No history yet')),
           ),
         ],
       ),
