@@ -2,7 +2,7 @@ import 'package:hack_hustlers/pages/chatbot.dart';
 import 'package:hack_hustlers/pages/community.dart';
 import 'package:hack_hustlers/pages/home.dart';
 import "package:flutter/material.dart";
-import 'package:hack_hustlers/pages/location.dart';
+import 'package:hack_hustlers/pages/Map/location.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -32,7 +32,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
           const Location(),
           const ChatBot(),
           const Community(),
-         
         ],
       ),
       bottomNavigationBar: Container(
@@ -57,16 +56,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
               label: 'Community',
               icon: Icon(Icons.people),
             ),
-            
           ],
           currentIndex: currIndex,
           onTap: onTapped,
           //selectedItemColor: const Color.fromARGB(255, 108, 199, 242),
           selectedItemColor: const Color.fromARGB(255, 108, 199, 242),
         ),
-
-
-    ),
+      ),
     );
   }
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:hack_hustlers/pages/navbar.dart';
-import 'package:hack_hustlers/pages/bottomNavBar.dart';
-
+import 'package:hack_hustlers/components/navbar.dart';
+import 'package:hack_hustlers/components/bottomNavBar.dart';
 
 class Community extends StatefulWidget {
   const Community({super.key});
