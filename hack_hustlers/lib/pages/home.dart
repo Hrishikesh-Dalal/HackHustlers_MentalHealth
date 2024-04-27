@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       drawer: DrawerWidget(),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(200, 300, 300, 200),
+        backgroundColor: Color.fromARGB(199, 107, 107, 247),
         title: Text('Mental Health'),
       ),
     );
