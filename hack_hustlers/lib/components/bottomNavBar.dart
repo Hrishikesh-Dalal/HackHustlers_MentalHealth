@@ -29,7 +29,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         controller: pageController,
         children: [
           const HomePage(),
-          const Location(),
+          const LocationPage(),
           const ChatBot(),
           const Community(),
         ],
