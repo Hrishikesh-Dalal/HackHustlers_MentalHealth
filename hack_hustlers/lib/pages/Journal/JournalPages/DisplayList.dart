@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 
 // ... (Existing code)
 
-Widget buildPositiveEmotionsList(
-    List<Map<String, dynamic>> positiveEmotionsList) {
+Widget buildEmotionsList(List<Map<String, dynamic>> emotionsList) {
   return ListView.builder(
-    itemCount: positiveEmotionsList.length,
+    itemCount: emotionsList.length,
     itemBuilder: (context, index) {
-      final noteData = positiveEmotionsList[index];
+      final noteData = emotionsList[index];
       final note = noteData['note'] as String;
       final timestamp =
           noteData['timestamp'] as Timestamp; // Assuming Timestamp
@@ -16,8 +15,10 @@ Widget buildPositiveEmotionsList(
       return Card(
         child: ListTile(
           title: Text(note),
-          subtitle:
-              Text(timestamp.toDate().toString()), // Format timestamp as needed
+          subtitle: Text(timestamp
+              .toDate()
+              .toString()
+              .substring(0, 11)), // Format timestamp as needed
         ),
       );
     },
