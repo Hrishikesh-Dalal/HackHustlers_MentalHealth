@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavBar(),
+      drawer: DrawerWidget(),
       appBar: AppBar(
         backgroundColor: Color.fromARGB(200, 300, 300, 200),
         title: Text('Mental Health'),

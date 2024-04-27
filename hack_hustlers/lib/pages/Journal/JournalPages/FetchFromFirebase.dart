@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-Future<List<Map<String, dynamic>>> getPositiveEmotions(String userId) async {
+Future<List<Map<String, dynamic>>> getPositiveEmotions(String? userId) async {
   List<Map<String, dynamic>> positiveEmotionsList = [];
 
   try {
