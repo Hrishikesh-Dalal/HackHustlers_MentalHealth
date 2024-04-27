@@ -41,6 +41,14 @@ dependencies:
   firebase_storage: ^11.6.6
   firebase: ^9.0.3
   cloud_firestore: ^4.15.5
+  fl_chart: ^0.35.0
+  arc_progress_bar_new: ^1.0.4
+  webview_flutter: ^4.7.0
+  url_launcher: ^6.2.6
+  flutter_linkify: ^6.0.0
+  audioplayers: ^6.0.0
+  # arc_progress_bar: ^1.0.4
+  
 
 dev_dependencies:
   flutter_test:
@@ -65,8 +73,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/sleep.jpg
+    - assets/calming_music.mp3
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
