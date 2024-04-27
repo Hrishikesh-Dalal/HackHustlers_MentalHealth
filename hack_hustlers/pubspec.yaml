@@ -42,15 +42,23 @@ dependencies:
   firebase_storage: ^11.6.6
   firebase: ^9.0.3
   cloud_firestore: ^4.15.5
+
+  fl_chart: ^0.35.0
+  arc_progress_bar_new: ^1.0.4
+  webview_flutter: ^4.7.0
+  url_launcher: ^6.2.6
+  flutter_linkify: ^6.0.0
+  audioplayers: ^6.0.0
+  # arc_progress_bar: ^1.0.4
+
   flutter_map: ^4.0.0
   latlong2: ^0.8.0
   fluttertoast: ^8.2.4
   image_picker:
   geolocator: ^9.0.1
-
   intl: ^0.17.0
-
   kommunicate_flutter: ^1.9.1
+
 
 
 dev_dependencies:
@@ -76,6 +84,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/sleep.jpg
+    - assets/calming_music.mp3
     - images/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
