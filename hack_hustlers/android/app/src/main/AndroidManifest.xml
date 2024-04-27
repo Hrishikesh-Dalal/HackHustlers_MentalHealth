@@ -4,6 +4,7 @@
         android:label="hack_hustlers"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
+
         tools:replace="android:label"
         android:enableOnBackInvokedCallback="true">
         
@@ -45,7 +46,16 @@
             <data android:mimeType="text/plain"/>
         </intent>
     </queries>
-    <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> -->
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+    </queries>
+
+    <!-- Permissions -->
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="32" tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
