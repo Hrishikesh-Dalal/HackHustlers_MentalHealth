@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_hustlers/authentication/signup.dart';
+import 'package:hack_hustlers/components/bottomNavBar.dart';
 import 'package:hack_hustlers/pages/home.dart';
 // import 'package:hack_hustlers/mood.dart';
 
@@ -37,7 +38,7 @@ class _LoginViewState extends State<LoginView> {
       if (snapshot.docs.isNotEmpty) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomePage()),
+          MaterialPageRoute(builder: (context) => BottomNavBar()),
         );
       } else {
         Navigator.push(

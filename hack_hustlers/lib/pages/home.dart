@@ -37,8 +37,12 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Color.fromARGB(199, 107, 107, 247),
         title: Text('Mental Health'),
       ),
-      bottomNavigationBar: BottomNavBar(),
+// <<<<<<< NewUpdate
+      // bottomNavigationBar: BottomNavBar(),
+// =======
+//       bottomNavigationBar: BottomNavBar(),
 
+// >>>>>>> main
     );
   }
 }

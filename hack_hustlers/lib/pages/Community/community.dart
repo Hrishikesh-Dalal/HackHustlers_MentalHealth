@@ -70,147 +70,213 @@ class _CommunityPageState extends State<CommunityPage> {
     print("User Deleted");
   }
 
+  bool _isFilterActive = false;
+
+  void _toggleFilter() {
+    setState(() {
+      _isFilterActive = !_isFilterActive;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Community'),
+        backgroundColor: Color.fromARGB(255, 157, 157, 243),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Community'),
+            ElevatedButton(
+              onPressed: _toggleFilter,
+              child: Text(
+                "Sort",
+              ),
+              // ),
+            ),
+          ],
+        ),
       ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: _firestore
-            .collection('Collection')
-            .orderBy('date', descending: true)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          final communities = snapshot.data!.docs;
-          return ListView.builder(
-            itemCount: communities.length,
-            itemBuilder: (context, index) {
-              final document = communities[index];
-              final content = document['content'] as String?;
-              final user = document['user'] as String?;
-              final date = document['date'] as Timestamp?;
-              final postId = document.id; // Get the document ID
+      body: Column(
+        children: [
+          // Text(
+          //   'Filter is ${_isFilterActive ? 'Active' : 'Inactive'}',
+          //   style: TextStyle(fontSize: 20.0),
+          // ),
+          SizedBox(height: 20.0),
+          // Padding(
+          //   padding: const EdgeInsets.only(right: 10.0),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.end,
+          //     children: [
+          //       ElevatedButton(
+          //         onPressed: _toggleFilter,
+          //         child: Text(
+          //           "Reverse Sort",
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          Expanded(
+            child: StreamBuilder<QuerySnapshot>(
+              stream: _firestore
+                  .collection('Collection')
+                  .orderBy('date', descending: true)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                final communities = snapshot.data!.docs;
+                return ListView.builder(
+                  itemCount: communities.length,
+                  itemBuilder: (context, index) {
+                    final document = communities[index];
+                    final content = document['content'] as String?;
+                    final user = document['user'] as String?;
+                    final date = document['date'] as Timestamp?;
+                    final postId = document.id; // Get the document ID
 
-              // Initialize visibility for new posts
-              _replyVisibility[postId] ??= false;
+                    // Initialize visibility for new posts
+                    _replyVisibility[postId] ??= false;
 
-              return Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Stack(
-                      // Wrap content in a Stack for Positioned widget
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                if (user == widget.id)
-                                  Text('By: You')
-                                else
-                                  Text('By: Anonymous'),
-                                Text(date != null
-                                    ? '${date.toDate().toString().substring(0, 11)}'
-                                    : 'Date unavailable'),
-                              ],
-                            ),
-                            const SizedBox(height: 8.0),
-                            Text(
-                              content ?? 'No Content',
-                              style: const TextStyle(fontSize: 18.0),
-                            ),
-                            const SizedBox(
-                                height: 8.0), // Additional spacing for dropdown
-                            // Dropdown to toggle reply visibility
-                            DropdownButton<bool>(
-                              value: _replyVisibility[postId],
-                              items: [
-                                DropdownMenuItem(
-                                  value: true,
-                                  child: Text('Show Replies'),
-                                ),
-                                DropdownMenuItem(
-                                  value: false,
-                                  child: Text('Hide Replies'),
-                                ),
-                              ],
-                              onChanged: (value) {
-                                setState(() {
-                                  _replyVisibility[postId] = value!;
-                                });
-                              },
-                            ),
-                            const SizedBox(
-                                height:
-                                    8.0), // Additional spacing after dropdown
-                            // Conditionally display reply section
-                            if (_replyVisibility[postId]!)
-                              _buildReplies(postId),
-                          ],
-                        ),
-                        // Delete button positioned at bottom right
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: Container(
-                            color: Colors.transparent,
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 1.0),
-                            child: IconButton(
-                              icon: const Icon(
-                                Icons.delete,
-                                size: 20.0,
+                    return Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Stack(
+                            // Wrap content in a Stack for Positioned widget
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      if (user == widget.id)
+                                        Text('By: You')
+                                      else
+                                        Text('By: Anonymous'),
+                                      Text(date != null
+                                          ? '${date.toDate().toString().substring(0, 11)}'
+                                          : 'Date unavailable'),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8.0),
+                                  Text(
+                                    content ?? 'No Content',
+                                    style: const TextStyle(fontSize: 18.0),
+                                  ),
+                                  const SizedBox(
+                                      height:
+                                          8.0), // Additional spacing for dropdown
+                                  // Dropdown to toggle reply visibility
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      DropdownButton<bool>(
+                                        value: _replyVisibility[postId],
+                                        borderRadius: BorderRadius.zero,
+                                        underline: Container(
+                                          // Remove underline
+                                          height: 0,
+                                          color: Colors
+                                              .transparent, // Transparent color
+                                        ),
+                                        items: [
+                                          DropdownMenuItem(
+                                            value: true,
+                                            child: Text(
+                                              'Show Replies',
+                                              style: TextStyle(fontSize: 12.0),
+                                            ),
+                                          ),
+                                          DropdownMenuItem(
+                                            value: false,
+                                            child: Text(
+                                              'Hide Replies',
+                                              style: TextStyle(fontSize: 12.0),
+                                            ),
+                                          ),
+                                        ],
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _replyVisibility[postId] = value!;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                      height:
+                                          6.0), // Additional spacing after dropdown
+                                  // Conditionally display reply section
+                                  if (_replyVisibility[postId]!)
+                                    _buildReplies(postId),
+                                ],
                               ),
-                              color: Colors.black,
-                              splashColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              onPressed: () {
-                                // Confirmation dialog before deletion
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: const Text('Confirm Delete'),
-                                      content: const Text(
-                                          'Are you sure you want to delete this post?'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                          child: const Text('Cancel'),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            // Call your deleteData function here
-                                            deleteData(postId);
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text('Delete'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
-                            ),
+                              // Delete button positioned at bottom right
+                              Positioned(
+                                bottom: 0,
+                                right: 0,
+                                child: Container(
+                                  color: Colors.transparent,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 1.0),
+                                  child: IconButton(
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      size: 20.0,
+                                    ),
+                                    color: Colors.black,
+                                    splashColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    onPressed: () {
+                                      // Confirmation dialog before deletion
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: const Text('Confirm Delete'),
+                                            content: const Text(
+                                                'Are you sure you want to delete this post?'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () =>
+                                                    Navigator.pop(context),
+                                                child: const Text('Cancel'),
+                                              ),
+                                              TextButton(
+                                                onPressed: () {
+                                                  // Call your deleteData function here
+                                                  deleteData(postId);
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text('Delete'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
-          );
-        },
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
