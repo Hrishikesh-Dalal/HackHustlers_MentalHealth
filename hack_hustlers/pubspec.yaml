@@ -47,10 +47,8 @@ dependencies:
   fluttertoast: ^8.2.4
   image_picker:
   geolocator: ^9.0.1
-
   intl: ^0.17.0
-
-  kommunicate_flutter: ^1.9.1
+  # kommunicate_flutter: ^1.9.1
 
 
 dev_dependencies:
