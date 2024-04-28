@@ -45,7 +45,7 @@ dependencies:
 
   fl_chart: ^0.35.0
   arc_progress_bar_new: ^1.0.4
-  webview_flutter: ^4.7.0
+  
   url_launcher: ^6.2.6
   flutter_linkify: ^6.0.0
   audioplayers: ^6.0.0

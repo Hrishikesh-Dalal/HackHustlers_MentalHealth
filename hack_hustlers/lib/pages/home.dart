@@ -23,26 +23,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       drawer: DrawerWidget(),
       appBar: AppBar(
-
-//         backgroundColor: Color.fromARGB(200, 300 ,300, 200),
-//         title:Text('Mental Health') ,
-
-//       ),
-//       //body: SleepTrackerPage(),
-//         /*body:WebView(
-//           initialUrl: 'https://example.com/your-mini-game',
-//           javascriptMode: JavascriptMode.unrestricted,
-//         ),*/
-
         backgroundColor: Color.fromARGB(199, 107, 107, 247),
         title: Text('Mental Health'),
       ),
-// <<<<<<< NewUpdate
-      // bottomNavigationBar: BottomNavBar(),
-// =======
-//       bottomNavigationBar: BottomNavBar(),
-
-// >>>>>>> main
     );
   }
 }
