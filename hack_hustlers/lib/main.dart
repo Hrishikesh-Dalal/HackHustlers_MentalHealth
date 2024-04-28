@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 import 'package:hack_hustlers/authentication/login.dart';
+
+import 'package:hack_hustlers/pages/activity.dart';
+import 'package:hack_hustlers/pages/blog.dart';
+
 import 'package:hack_hustlers/pages/home.dart';
 import 'firebase_options.dart';
 import 'package:hack_hustlers/pages/sleep_tracker.dart';
+
 import 'package:hack_hustlers/components/bottomNavBar.dart';
+
 
 // await Firebase.initializeApp(
 //     options: DefaultFirebaseOptions.currentPlatform,
@@ -31,7 +38,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+
       home: LoginView(),
+
     );
   }
 }
+
